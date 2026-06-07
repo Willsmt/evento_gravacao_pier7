@@ -44,48 +44,33 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
-    padding: 80px 24px 60px;
+    padding: 48px 24px 0;
     position: relative;
-    overflow: hidden;
   }
 
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(201,169,110,0.06) 0%, transparent 70%);
-  }
-
-  .hero-eyebrow {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 28px;
+  .hero-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
     opacity: 0;
     animation: fadeUp 0.8s 0.2s forwards;
   }
 
   .logo-circle {
-    width: 130px;
-    height: 130px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background: var(--dark);
     border: 1px solid rgba(201,169,110,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 36px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
+    margin: 0 auto 16px;
     position: relative;
   }
 
@@ -106,7 +91,7 @@
 
   .logo-monogram {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
+    font-size: 26px;
     font-weight: 300;
     font-style: italic;
     color: var(--cream);
@@ -115,44 +100,152 @@
   }
 
   .logo-name {
-    font-size: 8px;
-    letter-spacing: 0.25em;
+    font-size: 7px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--gold);
     display: block;
-    margin-top: 4px;
+    margin-top: 3px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
   }
 
   .hero-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(52px, 10vw, 110px);
+    font-size: clamp(44px, 8vw, 80px);
     line-height: 0.9;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     color: var(--cream);
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
+    animation: fadeUp 0.8s 0.4s forwards;
   }
 
   .hero-subtitle {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(18px, 3vw, 26px);
+    font-size: clamp(16px, 2.5vw, 21px);
     font-style: italic;
     font-weight: 300;
     color: var(--gold-light);
-    margin-bottom: 36px;
+    margin-bottom: 24px;
     opacity: 0;
-    animation: fadeUp 0.8s 0.7s forwards;
+    animation: fadeUp 0.8s 0.55s forwards;
   }
 
-  .hero-meta {
+  /* ── VIDEO HERO ── */
+  .hero-video-wrap {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.7s forwards;
+  }
+
+  .hero-video-frame {
+    position: relative;
+    border-radius: 6px 6px 0 0;
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-bottom: none;
+  }
+
+  .hero-video-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,169,110,0.04) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero-video-frame iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+    border: none;
+  }
+
+  .video-placeholder {
+    aspect-ratio: 16/9;
+    background: var(--card);
     display: flex;
-    gap: 40px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .video-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.01) 40px,
+      rgba(255,255,255,0.01) 41px
+    );
+  }
+
+  .play-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    background: rgba(201,169,110,0.05);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .play-btn:hover {
+    border-color: var(--gold);
+    background: rgba(201,169,110,0.12);
+    transform: scale(1.08);
+  }
+
+  .play-btn svg { fill: var(--gold); margin-left: 5px; }
+
+  .video-placeholder-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* barra de info abaixo do vídeo */
+  .hero-video-bar {
+    background: var(--dark);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-top: 1px solid rgba(201,169,110,0.08);
+    border-radius: 0 0 6px 6px;
+    padding: 16px 24px;
+    display: flex;
     justify-content: center;
     align-items: center;
+    gap: 32px;
     flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.9s forwards;
   }
 
   .meta-item {
@@ -165,33 +258,30 @@
     text-transform: uppercase;
     color: var(--gold);
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
 
   .meta-value {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--cream);
   }
 
   .meta-divider {
     width: 1px;
-    height: 40px;
+    height: 32px;
     background: var(--border);
   }
 
   .scroll-hint {
-    position: absolute;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    animation: fadeUp 1s 1.4s forwards;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s 1.4s forwards;
   }
 
   .scroll-line {
@@ -235,67 +325,7 @@
     max-width: 80px;
   }
 
-  /* ── VIDEO ── */
-  .video-wrapper {
-    position: relative;
-    border-radius: 4px;
-    overflow: hidden;
-    background: var(--card);
-    border: 1px solid var(--border);
-  }
 
-  .video-placeholder {
-    aspect-ratio: 16/9;
-    background: var(--card);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .video-placeholder::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,169,110,0.04) 0%, transparent 70%);
-  }
-
-  .play-btn {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    border: 1px solid rgba(201,169,110,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1;
-  }
-
-  .play-btn:hover {
-    border-color: var(--gold);
-    background: rgba(201,169,110,0.08);
-    transform: scale(1.05);
-  }
-
-  .play-btn svg {
-    fill: var(--gold);
-    margin-left: 4px;
-  }
-
-  .video-caption {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--muted);
-    text-align: center;
-    padding: 16px;
-  }
 
   /* ── PLAYLIST ── */
   .playlist-header {
@@ -374,7 +404,7 @@
     text-align: right;
   }
 
-  .track-info { flex: 1; min-width: 0; }
+  .track-info { flex: 1; min-width: 0; overflow: hidden; }
 
   .track-name {
     font-size: 14px;
@@ -454,6 +484,8 @@
     justify-content: center;
     padding: 24px;
     backdrop-filter: blur(4px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .modal-overlay.active { display: flex; }
@@ -568,6 +600,8 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .btn-confirm::before {
@@ -795,45 +829,158 @@
   }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    .hero-meta { gap: 20px; }
+  /* ══ TABLET (até 768px) ══ */
+  @media (max-width: 768px) {
+    section { padding: 56px 20px; }
+
+    .map-section { padding: 0 20px 56px; }
+
+    .cta-section { padding: 56px 20px; }
+
+    .ornament-divider { padding-left: 20px; padding-right: 20px; }
+
+    .playlist-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+
+    .platform-links { flex-direction: row; flex-wrap: wrap; }
+
+    .hero-video-bar {
+      gap: 20px;
+      padding: 14px 16px;
+    }
+
+    .map-wrapper iframe { height: 280px; }
+
+    .modal {
+      padding: 32px 24px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay { align-items: flex-end; padding: 0; }
+
+    .modal {
+      border-radius: 12px 12px 0 0;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  /* ══ MOBILE (até 480px) ══ */
+  @media (max-width: 480px) {
+    .hero { padding: 32px 16px 0; }
+
+    .hero-top { margin-bottom: 20px; }
+
+    .logo-circle { width: 68px; height: 68px; }
+    .logo-monogram { font-size: 22px; }
+
+    .hero-title { margin-bottom: 8px; }
+    .hero-subtitle { margin-bottom: 18px; font-size: 15px; }
+
+    .hero-video-bar {
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px 16px;
+      align-items: flex-start;
+    }
+
     .meta-divider { display: none; }
-    .platform-links { flex-direction: column; }
-    .modal { padding: 28px 20px; }
-    .playlist-header { flex-direction: column; align-items: flex-start; }
+
+    .meta-item { display: flex; align-items: center; gap: 10px; text-align: left; }
+    .meta-label { margin-bottom: 0; min-width: 52px; }
+
+    section { padding: 44px 16px; }
+
+    .section-label { font-size: 9px; }
+
+    .playlist-title { font-size: 22px; }
+
+    .platform-links { flex-direction: column; width: 100%; }
+    .platform-btn { justify-content: center; }
+
+    .track-item { padding: 13px 14px; gap: 12px; }
+    .track-name { font-size: 13px; }
+    .track-author { font-size: 11px; }
+    .track-duration { font-size: 11px; }
+
+    .cta-section { padding: 44px 16px; }
+    .cta-heading { font-size: 36px; }
+    .cta-sub br { display: none; }
+    .cta-sub { font-size: 15px; }
+
+    .btn-confirm { padding: 14px 24px; font-size: 10px; width: 100%; justify-content: center; }
+
+    .map-section { padding: 0 16px 44px; }
+    .map-wrapper iframe { height: 220px; }
+    .map-overlay { padding: 14px 16px; flex-direction: column; align-items: flex-start; gap: 6px; }
+
+    .ornament-divider { padding-left: 16px; padding-right: 16px; }
+
+    .modal { padding: 28px 18px; }
+    .modal-title { font-size: 20px; }
+
+    footer { padding: 24px 16px; }
+
+    .scroll-hint { margin-top: 28px; }
+  }
+
+  /* ══ MOBILE PEQUENO (até 360px) ══ */
+  @media (max-width: 360px) {
+    .hero-eyebrow { font-size: 9px; letter-spacing: 0.25em; }
+    .logo-circle { width: 60px; height: 60px; }
+    .logo-monogram { font-size: 19px; }
+    .track-item { padding: 11px 10px; }
+    .modal { padding: 24px 14px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ══ HERO ══ -->
+<!-- ══ HERO + VÍDEO ══ -->
 <header class="hero">
-  <p class="hero-eyebrow">Um convite especial</p>
 
-  <div class="logo-circle">
-    <div class="logo-inner">
-      <span class="logo-monogram">P7M</span>
-      <span class="logo-name">Pier 7 Music</span>
+  <div class="hero-top">
+    <div class="logo-circle">
+      <div class="logo-inner">
+        <span class="logo-monogram">P7M</span>
+        <span class="logo-name">Pier 7 Music</span>
+      </div>
     </div>
+    <p class="hero-eyebrow">Um convite especial</p>
   </div>
 
   <h1 class="hero-title">Gravação<br>Ao Vivo</h1>
   <p class="hero-subtitle">Uma noite de música e fé</p>
 
-  <div class="hero-meta">
-    <div class="meta-item">
-      <span class="meta-label">Data</span>
-      <span class="meta-value">Agosto · 2026</span>
+  <div class="hero-video-wrap">
+    <div class="hero-video-frame">
+      <!-- SUBSTITUA o bloco abaixo pelo iframe do YouTube quando tiver o link:
+           <iframe src="https://www.youtube.com/embed/SEU_VIDEO_ID?rel=0"
+                   allowfullscreen allow="autoplay; encrypted-media"></iframe>
+      -->
+      <div class="video-placeholder" onclick="alert('Substitua pelo embed do YouTube')">
+        <div class="play-btn">
+          <svg width="26" height="26" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <span class="video-placeholder-text">Mensagem do artista — vídeo em breve</span>
+      </div>
     </div>
-    <div class="meta-divider"></div>
-    <div class="meta-item">
-      <span class="meta-label">Horário</span>
-      <span class="meta-value">19h00</span>
-    </div>
-    <div class="meta-divider"></div>
-    <div class="meta-item">
-      <span class="meta-label">Local</span>
-      <span class="meta-value">Igreja Evangelho Pleno</span>
+
+    <div class="hero-video-bar">
+      <div class="meta-item">
+        <span class="meta-label">Data</span>
+        <span class="meta-value">Agosto · 2026</span>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-item">
+        <span class="meta-label">Horário</span>
+        <span class="meta-value">19h00</span>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-item">
+        <span class="meta-label">Local</span>
+        <span class="meta-value">Igreja Evangelho Pleno</span>
+      </div>
     </div>
   </div>
 
@@ -841,22 +988,10 @@
     <span class="scroll-text">Rolar</span>
     <div class="scroll-line"></div>
   </div>
+
 </header>
 
-<!-- ══ VIDEO ══ -->
-<section class="reveal">
-  <p class="section-label">O artista convida</p>
-  <div class="video-wrapper">
-    <div class="video-placeholder">
-      <div class="play-btn" onclick="alert('Vídeo será inserido aqui — substitua pelo embed do YouTube')">
-        <svg width="22" height="22" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </div>
-    </div>
-    <p class="video-caption">Mensagem do artista sobre esta noite especial</p>
-  </div>
-</section>
-
-<div class="ornament-divider"><div class="ornament-diamond"></div></div>
+<div class="ornament-divider" style="padding-top: 48px;"><div class="ornament-diamond"></div></div>
 
 <!-- ══ PLAYLIST ══ -->
 <section class="reveal">
@@ -925,7 +1060,7 @@
 <div class="cta-section reveal">
   <div class="cta-ornament"><span>✦</span></div>
   <h2 class="cta-heading">Confirme sua presença</h2>
-  <p class="cta-sub">Vagas limitadas. Faça sua inscrição e garanta<br>seu lugar nesta noite especial.</p>
+  <p class="cta-sub">Vagas limitadas. Faça sua inscrição e garanta seu lugar nesta noite especial.</p>
   <button class="btn-confirm" onclick="document.getElementById('modal').classList.add('active')">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
     <span>Quero confirmar presença</span>
