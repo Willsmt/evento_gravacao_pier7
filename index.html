@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pier 7 Music — Gravação ao Vivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #181818;
+    --border: rgba(255,255,255,0.08);
+    --cream: #e8e0d0;
+    --gold: #c9a96e;
+    --gold-light: #e8cc9a;
+    --muted: rgba(232,224,208,0.5);
+    --text: #e8e0d0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(201,169,110,0.06) 0%, transparent 70%);
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .logo-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: var(--dark);
+    border: 1px solid rgba(201,169,110,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 36px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+    position: relative;
+  }
+
+  .logo-circle::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, rgba(201,169,110,0.3), transparent, rgba(201,169,110,0.1), transparent, rgba(201,169,110,0.3));
+    animation: spin 8s linear infinite;
+  }
+
+  .logo-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .logo-monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1;
+    display: block;
+  }
+
+  .logo-name {
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 10vw, 110px);
+    line-height: 0.9;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold-light);
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  .meta-item {
+    text-align: center;
+  }
+
+  .meta-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .meta-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--cream);
+  }
+
+  .meta-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeUp 1s 1.4s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  .scroll-text {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+
+  /* ── SECTION LAYOUT ── */
+  section {
+    padding: 80px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  /* ── VIDEO ── */
+  .video-wrapper {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
+
+  .video-placeholder {
+    aspect-ratio: 16/9;
+    background: var(--card);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .video-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,169,110,0.04) 0%, transparent 70%);
+  }
+
+  .play-btn {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .play-btn:hover {
+    border-color: var(--gold);
+    background: rgba(201,169,110,0.08);
+    transform: scale(1.05);
+  }
+
+  .play-btn svg {
+    fill: var(--gold);
+    margin-left: 4px;
+  }
+
+  .video-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    padding: 16px;
+  }
+
+  /* ── PLAYLIST ── */
+  .playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .playlist-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--cream);
+  }
+
+  .platform-links {
+    display: flex;
+    gap: 10px;
+  }
+
+  .platform-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: all 0.25s ease;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .platform-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,169,110,0.05);
+  }
+
+  .platform-btn svg { flex-shrink: 0; }
+
+  .track-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .track-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s ease;
+    cursor: default;
+  }
+
+  .track-item:last-child { border-bottom: none; }
+  .track-item:hover { background: rgba(255,255,255,0.02); }
+
+  .track-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--gold);
+    min-width: 20px;
+    text-align: right;
+  }
+
+  .track-info { flex: 1; min-width: 0; }
+
+  .track-name {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--cream);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .track-author {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .track-duration {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  /* ── INSCRIÇÃO ── */
+  .cta-section {
+    text-align: center;
+    padding: 80px 24px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    color: var(--gold);
+    opacity: 0.4;
+  }
+
+  .cta-ornament span { font-size: 18px; font-style: italic; font-family: 'Cormorant Garamond', serif; }
+  .cta-ornament::before,
+  .cta-ornament::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .cta-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 64px);
+    color: var(--cream);
+    letter-spacing: 0.06em;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .cta-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 500;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--dark);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 4px;
+    padding: 40px;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    animation: modalIn 0.3s ease;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--cream); }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+
+  .modal-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .form-input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 12px 16px;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-input::placeholder { color: rgba(232,224,208,0.25); }
+  .form-input:focus { border-color: rgba(201,169,110,0.5); }
+
+  .btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    margin-top: 8px;
+    transition: all 0.25s ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .btn-confirm {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 40px;
+    background: transparent;
+    border: 1px solid rgba(201,169,110,0.5);
+    color: var(--gold);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-confirm::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .btn-confirm:hover::before { transform: translateX(0); }
+  .btn-confirm:hover { color: var(--black); border-color: var(--gold); }
+
+  .btn-confirm span, .btn-confirm svg { position: relative; z-index: 1; }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  .success-screen.active { display: block; }
+  .form-screen.hidden { display: none; }
+
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .success-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .post-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+    cursor: pointer;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.25s ease;
+    width: 100%;
+  }
+
+  .action-btn.whatsapp { border-color: rgba(37,211,102,0.3); color: #25d366; }
+  .action-btn.whatsapp:hover { background: rgba(37,211,102,0.07); }
+
+  .action-btn.calendar { border-color: rgba(66,133,244,0.3); color: #4285f4; }
+  .action-btn.calendar:hover { background: rgba(66,133,244,0.07); }
+
+  /* ── MAP ── */
+  .map-section {
+    padding: 0 24px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .map-wrapper {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .map-wrapper iframe {
+    width: 100%;
+    height: 340px;
+    display: block;
+    filter: grayscale(100%) invert(90%) contrast(80%);
+    border: none;
+  }
+
+  .map-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 100%);
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .map-address {
+    font-size: 13px;
+    color: var(--cream);
+  }
+
+  .map-address strong {
+    display: block;
+    font-weight: 400;
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+
+  .map-link {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,169,110,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+    white-space: nowrap;
+  }
+
+  .map-link:hover { border-color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .footer-text {
+    font-size: 11px;
+    color: rgba(232,224,208,0.25);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── DIVIDER ── */
+  .ornament-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 8px 0 48px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 200px;
+  }
+
+  .ornament-diamond {
+    width: 6px;
+    height: 6px;
+    border: 1px solid rgba(201,169,110,0.4);
+    transform: rotate(45deg);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(1.1); }
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero-meta { gap: 20px; }
+    .meta-divider { display: none; }
+    .platform-links { flex-direction: column; }
+    .modal { padding: 28px 20px; }
+    .playlist-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <p class="hero-eyebrow">Um convite especial</p>
+
+  <div class="logo-circle">
+    <div class="logo-inner">
+      <span class="logo-monogram">P7M</span>
+      <span class="logo-name">Pier 7 Music</span>
+    </div>
+  </div>
+
+  <h1 class="hero-title">Gravação<br>Ao Vivo</h1>
+  <p class="hero-subtitle">Uma noite de música e fé</p>
+
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Data</span>
+      <span class="meta-value">Agosto · 2026</span>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-item">
+      <span class="meta-label">Horário</span>
+      <span class="meta-value">19h00</span>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-item">
+      <span class="meta-label">Local</span>
+      <span class="meta-value">Igreja Evangelho Pleno</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span class="scroll-text">Rolar</span>
+    <div class="scroll-line"></div>
+  </div>
+</header>
+
+<!-- ══ VIDEO ══ -->
+<section class="reveal">
+  <p class="section-label">O artista convida</p>
+  <div class="video-wrapper">
+    <div class="video-placeholder">
+      <div class="play-btn" onclick="alert('Vídeo será inserido aqui — substitua pelo embed do YouTube')">
+        <svg width="22" height="22" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <p class="video-caption">Mensagem do artista sobre esta noite especial</p>
+  </div>
+</section>
+
+<div class="ornament-divider"><div class="ornament-diamond"></div></div>
+
+<!-- ══ PLAYLIST ══ -->
+<section class="reveal">
+  <p class="section-label">Repertório</p>
+  <div class="playlist-header">
+    <h2 class="playlist-title">O que vai tocar</h2>
+    <div class="platform-links">
+      <a class="platform-btn" href="https://open.spotify.com" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 01-.277-1.216c3.809-.87 7.076-.496 9.713 1.116a.623.623 0 01.206.857zm1.226-2.728a.78.78 0 01-1.072.257c-2.687-1.652-6.786-2.13-9.965-1.166a.78.78 0 11-.453-1.491c3.633-1.102 8.147-.569 11.233 1.328a.78.78 0 01.257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.792c3.527-1.07 9.396-.862 13.098 1.332a.937.937 0 01-.935 1.611z"/></svg>
+        Spotify
+      </a>
+      <a class="platform-btn" href="https://youtube.com" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+        YouTube
+      </a>
+    </div>
+  </div>
+
+  <div class="track-list">
+    <div class="track-item">
+      <span class="track-num">01</span>
+      <div class="track-info">
+        <div class="track-name">Nome da Música 1</div>
+        <div class="track-author">Pier 7 Music</div>
+      </div>
+      <span class="track-duration">3:42</span>
+    </div>
+    <div class="track-item">
+      <span class="track-num">02</span>
+      <div class="track-info">
+        <div class="track-name">Nome da Música 2</div>
+        <div class="track-author">Pier 7 Music</div>
+      </div>
+      <span class="track-duration">4:15</span>
+    </div>
+    <div class="track-item">
+      <span class="track-num">03</span>
+      <div class="track-info">
+        <div class="track-name">Nome da Música 3</div>
+        <div class="track-author">Pier 7 Music</div>
+      </div>
+      <span class="track-duration">5:01</span>
+    </div>
+    <div class="track-item">
+      <span class="track-num">04</span>
+      <div class="track-info">
+        <div class="track-name">Nome da Música 4</div>
+        <div class="track-author">Pier 7 Music</div>
+      </div>
+      <span class="track-duration">3:58</span>
+    </div>
+    <div class="track-item">
+      <span class="track-num">05</span>
+      <div class="track-info">
+        <div class="track-name">Nome da Música 5</div>
+        <div class="track-author">Pier 7 Music</div>
+      </div>
+      <span class="track-duration">4:30</span>
+    </div>
+  </div>
+</section>
+
+<div class="ornament-divider"><div class="ornament-diamond"></div></div>
+
+<!-- ══ INSCRIÇÃO ══ -->
+<div class="cta-section reveal">
+  <div class="cta-ornament"><span>✦</span></div>
+  <h2 class="cta-heading">Confirme sua presença</h2>
+  <p class="cta-sub">Vagas limitadas. Faça sua inscrição e garanta<br>seu lugar nesta noite especial.</p>
+  <button class="btn-confirm" onclick="document.getElementById('modal').classList.add('active')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    <span>Quero confirmar presença</span>
+  </button>
+</div>
+
+<div class="ornament-divider"><div class="ornament-diamond"></div></div>
+
+<!-- ══ MAPA ══ -->
+<div class="map-section reveal">
+  <p class="section-label" style="padding: 0 0 16px;">Como chegar</p>
+  <div class="map-wrapper">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.0!2d-46.3!3d-23.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce65001e42ae93%3A0xf57d23e942f6fe24!2sIgreja%20Evangelho%20Pleno!5e0!3m2!1spt-BR!2sbr!4v1"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Localização da Igreja Evangelho Pleno"
+    ></iframe>
+    <div class="map-overlay">
+      <div class="map-address">
+        <strong>Igreja Evangelho Pleno</strong>
+        São Paulo · SP
+      </div>
+      <a class="map-link" href="https://maps.google.com/?q=Igreja+Evangelho+Pleno" target="_blank">Abrir no Maps →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p class="footer-logo">Pier 7 Music</p>
+  <p class="footer-text">© 2026 · Todos os direitos reservados</p>
+</footer>
+
+<!-- ══ MODAL ══ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div class="form-screen" id="formScreen">
+      <h3 class="modal-title">Confirmar presença</h3>
+      <p class="modal-sub">Preencha seus dados e garante seu lugar</p>
+
+      <div class="form-group">
+        <label class="form-label" for="inp-nome">Nome completo</label>
+        <input class="form-input" type="text" id="inp-nome" placeholder="Seu nome">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="inp-phone">WhatsApp</label>
+        <input class="form-input" type="tel" id="inp-phone" placeholder="(11) 99999-9999">
+      </div>
+
+      <button class="btn-primary" onclick="confirmar()">Confirmar presença</button>
+    </div>
+
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <h3 class="success-title">Presença confirmada!</h3>
+      <p class="success-text">Te esperamos em agosto.<br>Salve o evento na sua agenda.</p>
+
+      <div class="post-actions">
+        <a class="action-btn whatsapp" id="btnWhatsapp" href="#" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enviar confirmação no WhatsApp
+        </a>
+        <a class="action-btn calendar" id="btnCalendar" href="#" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Adicionar à agenda do Google
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => obs.observe(el));
+
+  // ── Modal
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    setTimeout(() => {
+      document.getElementById('formScreen').classList.remove('hidden');
+      document.getElementById('successScreen').classList.remove('active');
+    }, 300);
+  }
+
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // ── Confirmar
+  function confirmar() {
+    const nome  = document.getElementById('inp-nome').value.trim();
+    const phone = document.getElementById('inp-phone').value.trim();
+
+    if (!nome || !phone) {
+      alert('Por favor, preencha nome e WhatsApp.');
+      return;
+    }
+
+    // ── Salvar no Google Sheets (substitua pela URL do seu Apps Script)
+    const scriptURL = 'SUA_URL_DO_APPS_SCRIPT_AQUI';
+    // fetch(scriptURL, { method: 'POST', body: JSON.stringify({ nome, phone, timestamp: new Date().toISOString() }) });
+
+    // ── WhatsApp do inscrito
+    const msgInscrito = encodeURIComponent(
+      `✅ *Presença confirmada!*\n\nOlá, ${nome}! Sua inscrição para a *Gravação ao Vivo — Pier 7 Music* foi confirmada.\n\n📅 Agosto · 2026\n🕖 19h00\n📍 Igreja Evangelho Pleno\n\nTe esperamos lá! 🎵`
+    );
+
+    // ── WhatsApp do organizador (substitua pelo número real)
+    const numOrganizador = '5511999999999';
+    const msgOrganizador = encodeURIComponent(`🎟️ Nova inscrição!\nNome: ${nome}\nTel: ${phone}`);
+
+    // ── Google Calendar
+    const calURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gravação+Ao+Vivo+–+Pier+7+Music&dates=20260815T190000/20260815T220000&details=Gravação+ao+vivo+da+Pier+7+Music+na+Igreja+Evangelho+Pleno&location=Igreja+Evangelho+Pleno,+São+Paulo`;
+
+    document.getElementById('btnWhatsapp').href = `https://wa.me/?text=${msgInscrito}`;
+    document.getElementById('btnCalendar').href = calURL;
+
+    document.getElementById('formScreen').classList.add('hidden');
+    document.getElementById('successScreen').classList.add('active');
+
+    // Notifica organizador (abre em bg silenciosamente)
+    // window.open(`https://wa.me/${numOrganizador}?text=${msgOrganizador}`, '_blank');
+  }
+</script>
+</body>
+</html>
