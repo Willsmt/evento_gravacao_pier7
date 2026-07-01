@@ -122,7 +122,10 @@ function confirmar() {
   );
 
   // ── Google Calendar
-  const calURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gravação+Ao+Vivo+–+Pier+7+Music&dates=20260815T200000/20260815T230000&details=Gravação+ao+vivo+da+Pier+7+Music+na+Igreja+Evangelho+Pleno&location=Igreja+Evangelho+Pleno,+Estrada+Iguatemi,+3853+-+Jardim+Pedra+Branca,+São+Paulo+-+SP,+08490-500`;
+  const calDetails = encodeURIComponent(
+    `Gravação ao vivo da Pier 7 Music na Igreja Evangelho Pleno.\n\n⏰ Chegue um pouco antes das 20h para pegar um bom lugar.\n\n🎨 Dress code: como é uma gravação, venha nas cores branco, preto e marrom para manter a harmonia do ambiente.`,
+  );
+  const calURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gravação+Ao+Vivo+–+Pier+7+Music&dates=20260815T200000/20260815T230000&details=${calDetails}&location=Igreja+Evangelho+Pleno,+Estrada+Iguatemi,+3853+-+Jardim+Pedra+Branca,+São+Paulo+-+SP,+08490-500`;
 
   document.getElementById("btnWhatsapp").href =
     `https://wa.me/?text=${msgConvite}`;
