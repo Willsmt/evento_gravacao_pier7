@@ -112,7 +112,7 @@ function confirmar() {
 
   // ── Convite para compartilhar com um amigo
   const msgConvite = encodeURIComponent(
-    `🎵 *Você está convidado!*\n\nVem comigo pra *Gravação ao Vivo — Pier 7 Music*!\n\n📅 Agosto · 2026\n🕖 19h00\n📍 Igreja Evangelho Pleno\n\nGaranta sua presença: ${window.location.href}`,
+    `🎵 *Você está convidado!*\n\nVem comigo pra *Gravação ao Vivo — Pier 7 Music*!\n\n📅 15 · Agosto · 2026\n🕖 20h00\n📍 Igreja Evangelho Pleno\n\nGaranta sua presença: ${window.location.href}`,
   );
 
   // ── WhatsApp do organizador (número definido em NUM_ORGANIZADOR no topo do arquivo)
@@ -121,7 +121,7 @@ function confirmar() {
   );
 
   // ── Google Calendar
-  const calURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gravação+Ao+Vivo+–+Pier+7+Music&dates=20260815T190000/20260815T220000&details=Gravação+ao+vivo+da+Pier+7+Music+na+Igreja+Evangelho+Pleno&location=Igreja+Evangelho+Pleno,+São+Paulo`;
+  const calURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gravação+Ao+Vivo+–+Pier+7+Music&dates=20260815T200000/20260815T230000&details=Gravação+ao+vivo+da+Pier+7+Music+na+Igreja+Evangelho+Pleno&location=Igreja+Evangelho+Pleno,+São+Paulo`;
 
   document.getElementById("btnWhatsapp").href =
     `https://wa.me/?text=${msgConvite}`;
