@@ -112,7 +112,7 @@ function confirmar() {
 
   // ── Convite para compartilhar com um amigo
   const msgConvite = encodeURIComponent(
-    `🎵 *Você está convidado!*\n\nVem comigo pra *Gravação ao Vivo — Pier 7 Music*!\n\n📅 15 · Agosto · 2026\n🕖 20h00\n📍 Igreja Evangelho Pleno\n\nGaranta sua presença: ${window.location.href}`,
+    `🎵 *Você está convidado! Bora?*\n\nAcabei de garantir minha vaga para a *Gravação ao Vivo da Pier 7 Music* e queria muito que você estivesse lá comigo!\n\n📅 15 de agosto de 2026\n🕖 20h00\n📍 Igreja Evangelho Pleno\n\nA entrada é gratuita, mas é importante fazer a inscrição.\n\n👉 Garanta sua presença:\nhttps://evento-gravacao-pier7.vercel.app/\n\nVai ser uma noite especial de adoração. Espero te ver lá! 🙏🎶`,
   );
 
   // ── WhatsApp do organizador (número definido em NUM_ORGANIZADOR no topo do arquivo)
@@ -121,7 +121,7 @@ function confirmar() {
   );
 
   // ── Google Calendar
-  const calURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gravação+Ao+Vivo+–+Pier+7+Music&dates=20260815T200000/20260815T230000&details=Gravação+ao+vivo+da+Pier+7+Music+na+Igreja+Evangelho+Pleno&location=Igreja+Evangelho+Pleno,+São+Paulo`;
+  const calURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gravação+Ao+Vivo+–+Pier+7+Music&dates=20260815T200000/20260815T230000&details=Gravação+ao+vivo+da+Pier+7+Music+na+Igreja+Evangelho+Pleno&location=Igreja+Evangelho+Pleno,+Estrada+Iguatemi,+3853+-+Jardim+Pedra+Branca,+São+Paulo+-+SP,+08490-500`;
 
   document.getElementById("btnWhatsapp").href =
     `https://wa.me/?text=${msgConvite}`;
