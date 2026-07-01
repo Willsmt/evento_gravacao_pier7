@@ -420,6 +420,49 @@ section {
   font-style: italic;
 }
 
+.track-links {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.track-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.track-icon-btn svg { flex-shrink: 0; }
+
+.track-icon-btn.youtube:hover {
+  border-color: #ff0000;
+  color: #ff4d4d;
+  background: rgba(255,0,0,0.06);
+}
+
+.track-icon-btn.spotify:hover {
+  border-color: #1db954;
+  color: #1ed760;
+  background: rgba(29,185,84,0.06);
+}
+
+.track-soon {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  flex-shrink: 0;
+}
+
 /* ── INSCRIÇÃO ── */
 .cta-section {
   text-align: center;
@@ -894,6 +937,8 @@ footer {
   .track-name { font-size: 13px; }
   .track-author { font-size: 11px; }
   .track-duration { font-size: 11px; }
+  .track-links { gap: 6px; }
+  .track-icon-btn { width: 32px; height: 32px; }
 
   .cta-section { padding: 44px 16px; }
   .cta-heading { font-size: 36px; }
