@@ -5,7 +5,8 @@
 // Enquanto estiver vazia (''), as inscrições NÃO são salvas — o restante
 // do fluxo (WhatsApp + Calendar) continua funcionando normalmente.
 // Passo a passo de como gerar essa URL: ver o README.md.
-const SCRIPT_URL = "";
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbx0C-T0MxjXBfz7Vs9ppbuG6IdEA9ln1lXik5LxY3GDSah_Avx0rgyusZIa_CmD3WcX/exec";
 
 // WhatsApp do organizador (formato internacional, só números). Ex.: 5511999999999
 const NUM_ORGANIZADOR = "";
