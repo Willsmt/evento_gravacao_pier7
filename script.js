@@ -137,3 +137,57 @@ function confirmar() {
   // Notifica organizador (abre em bg silenciosamente)
   // window.open(`https://wa.me/${NUM_ORGANIZADOR}?text=${msgOrganizador}`, '_blank');
 }
+
+// ─────────────────────────────────────────────────────────────
+//  Contagem regressiva até o evento
+// ─────────────────────────────────────────────────────────────
+// Data/hora do evento: 15 de agosto de 2026, 20h00 (horário de Brasília, UTC-3).
+// O "-03:00" garante que a contagem fique certa para quem acessa de qualquer fuso.
+const DATA_EVENTO = new Date("2026-08-15T20:00:00-03:00");
+
+const cdLive = document.getElementById("countdownLive");
+const cdEnded = document.getElementById("countdownEnded");
+const elDays = document.getElementById("cd-days");
+const elHours = document.getElementById("cd-hours");
+const elMins = document.getElementById("cd-mins");
+const elSecs = document.getElementById("cd-secs");
+
+let cdTimer = null;
+
+function pad2(n) {
+  return String(n).padStart(2, "0");
+}
+
+// Troca a contagem pela mensagem de "evento já aconteceu".
+function encerrarContagem() {
+  if (cdTimer) clearInterval(cdTimer);
+  if (cdLive) cdLive.hidden = true;
+  if (cdEnded) cdEnded.hidden = false;
+}
+
+function atualizarContagem() {
+  const restante = DATA_EVENTO.getTime() - Date.now();
+
+  // Tempo esgotado → mostra a mensagem de encerramento e para o timer.
+  if (restante <= 0) {
+    encerrarContagem();
+    return;
+  }
+
+  const seg = Math.floor(restante / 1000);
+  const dias = Math.floor(seg / 86400);
+  const horas = Math.floor((seg % 86400) / 3600);
+  const minutos = Math.floor((seg % 3600) / 60);
+  const segundos = seg % 60;
+
+  elDays.textContent = pad2(dias);
+  elHours.textContent = pad2(horas);
+  elMins.textContent = pad2(minutos);
+  elSecs.textContent = pad2(segundos);
+}
+
+// Só inicia se a seção existir na página.
+if (cdLive && cdEnded) {
+  atualizarContagem();
+  cdTimer = setInterval(atualizarContagem, 1000);
+}

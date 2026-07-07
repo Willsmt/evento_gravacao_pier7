@@ -65,6 +65,35 @@
 
       <h1 class="hero-title">Gravação<br />Ao Vivo</h1>
 
+      <!-- ── Contagem regressiva (compacta) ── -->
+      <div class="hero-countdown" id="countdown">
+        <div class="hero-countdown-live" id="countdownLive" aria-live="polite">
+          <div class="hcd-unit">
+            <span class="hcd-num" id="cd-days">--</span>
+            <span class="hcd-label">dias</span>
+          </div>
+          <span class="hcd-sep">·</span>
+          <div class="hcd-unit">
+            <span class="hcd-num" id="cd-hours">--</span>
+            <span class="hcd-label">horas</span>
+          </div>
+          <span class="hcd-sep">·</span>
+          <div class="hcd-unit">
+            <span class="hcd-num" id="cd-mins">--</span>
+            <span class="hcd-label">min</span>
+          </div>
+          <span class="hcd-sep">·</span>
+          <div class="hcd-unit">
+            <span class="hcd-num" id="cd-secs">--</span>
+            <span class="hcd-label">seg</span>
+          </div>
+        </div>
+        <p class="hero-countdown-ended" id="countdownEnded" hidden>
+          <span class="hcd-ended-mark">✦</span>
+          Este evento já aconteceu — inscrições encerradas
+        </p>
+      </div>
+
       <div class="hero-video-wrap">
         <div class="hero-video-frame">
           <!-- Quando o vídeo estiver pronto, troque o bloco .video-placeholder abaixo por:
