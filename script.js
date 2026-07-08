@@ -8,8 +8,10 @@
 const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbx0C-T0MxjXBfz7Vs9ppbuG6IdEA9ln1lXik5LxY3GDSah_Avx0rgyusZIa_CmD3WcX/exec";
 
-// WhatsApp do organizador (formato internacional, só números). Ex.: 5511999999999
-const NUM_ORGANIZADOR = "";
+// WhatsApp do Marcos / organizador (formato internacional, só números).
+// Ex.: 5511956697013 (55 + DDD + número). É esse número que o botão fixo de
+// "Dúvidas" usa. Enquanto estiver vazio, o botão fica escondido.
+const NUM_ORGANIZADOR = "5511999491572";
 
 // ─────────────────────────────────────────────────────────────
 //  Salva a inscrição no Google Sheets (via Apps Script)
@@ -137,6 +139,26 @@ function confirmar() {
   // Notifica organizador (abre em bg silenciosamente)
   // window.open(`https://wa.me/${NUM_ORGANIZADOR}?text=${msgOrganizador}`, '_blank');
 }
+
+// ─────────────────────────────────────────────────────────────
+//  Botão fixo de dúvidas (WhatsApp do Marcos)
+// ─────────────────────────────────────────────────────────────
+// Usa o NUM_ORGANIZADOR definido no topo do arquivo. Enquanto estiver
+// vazio, o botão fica escondido para não abrir um link quebrado.
+(function () {
+  const fab = document.getElementById("askFab");
+  if (!fab) return;
+
+  if (!NUM_ORGANIZADOR) {
+    fab.style.display = "none";
+    return;
+  }
+
+  const msgDuvida = encodeURIComponent(
+    "Olá! Vi o convite da Gravação ao Vivo da Pier 7 Music e fiquei com uma dúvida:",
+  );
+  fab.href = `https://wa.me/${NUM_ORGANIZADOR}?text=${msgDuvida}`;
+})();
 
 // ─────────────────────────────────────────────────────────────
 //  Contagem regressiva até o evento
