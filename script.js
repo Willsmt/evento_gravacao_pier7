@@ -115,7 +115,7 @@ function confirmar() {
 
   // ── Convite para compartilhar com um amigo
   const msgConvite = encodeURIComponent(
-    `🎵 *Você está convidado! Bora?*\n\nAcabei de garantir minha vaga para a *Gravação ao Vivo da Pier 7 Music* e queria muito que você estivesse lá comigo!\n\n📅 15 de agosto de 2026\n🕖 20h00\n📍 Igreja Evangelho Pleno\n\nA entrada é gratuita, mas é importante fazer a inscrição.\n\n👉 Garanta sua presença:\nhttps://evento-gravacao-pier7.vercel.app/\n\nVai ser uma noite especial de adoração. Espero te ver lá! 🙏🎶`,
+    `🎵 *Você está convidado! Bora?*\n\nAcabei de garantir minha vaga para a *Gravação ao Vivo da Pier 7 Music* e queria muito que você estivesse lá comigo!\n\n📅 15 de agosto de 2026\n🕖 20h00\n📍 Igreja Evangelho Pleno\nEstrada Iguatemi, 3853 - Jardim Pedra Branca, São Paulo - SP, 08490-500\n\nA entrada é gratuita, mas é importante fazer a inscrição.\n\n👉 Garanta sua presença:\nhttps://evento-gravacao-pier7.vercel.app/\n\nVai ser uma noite especial de adoração. Espero te ver lá! 🙏🎶`,
   );
 
   // ── WhatsApp do organizador (número definido em NUM_ORGANIZADOR no topo do arquivo)
